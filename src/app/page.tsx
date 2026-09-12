@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import MechanicVisual from '@/components/MechanicVisual'
 
@@ -110,6 +111,14 @@ export default function PartnersPage() {
       <section className="relative px-6 pt-20 pb-16 md:pt-28 md:pb-24 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           <div>
+            <Image
+              src="/images/logo.png"
+              alt="СБРОС"
+              width={56}
+              height={56}
+              className="rounded-2xl mb-8"
+              priority
+            />
             <p className="text-lime font-mono text-xs tracking-[0.15em] uppercase mb-6">СБРОС для продавцов</p>
             <h1 className="font-display text-[2.6rem] leading-[1.05] md:text-6xl md:leading-[1.05] font-semibold mb-6 text-balance">
               Ваши покупатели сами приведут вам соседей
@@ -187,6 +196,38 @@ export default function PartnersPage() {
         </div>
       </section>
 
+      {/* СКРИНШОТЫ ПРИЛОЖЕНИЯ */}
+      <section className="px-6 py-20 md:py-28 border-t border-line">
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <h2 className="font-display text-3xl md:text-5xl font-semibold mb-4">Так это выглядит внутри</h2>
+          </Reveal>
+          <Reveal delay={80}>
+            <p className="text-muted mb-14 max-w-lg">
+              Реальные экраны приложения — покупатель видит прогресс, цену и может написать
+              продавцу напрямую.
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-3 gap-4 md:gap-8">
+            {[
+              { src: '/images/screen-product.jpg', caption: 'Цена падает по мере набора участников' },
+              { src: '/images/screen-feed.jpg', caption: 'Лента активных предложений в городе' },
+              { src: '/images/screen-chat.jpg', caption: 'Прямая связь с продавцом в WhatsApp' },
+            ].map((s, i) => (
+              <Reveal key={s.src} delay={i * 90}>
+                <div className="flex flex-col items-center">
+                  <div className="relative w-full max-w-[220px] rounded-[2rem] border-4 border-line bg-ink overflow-hidden shadow-2xl mb-4">
+                    <img src={s.src} alt={s.caption} className="w-full h-auto block" />
+                  </div>
+                  <p className="text-sm text-muted text-center max-w-[200px]">{s.caption}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ЗАЧЕМ ЭТО ВАМ */}
       <section className="px-6 py-20 md:py-28 border-t border-line">
         <div className="max-w-5xl mx-auto">
@@ -221,13 +262,27 @@ export default function PartnersPage() {
             <h2 className="font-display text-3xl md:text-5xl font-semibold mb-3">Реальные примеры</h2>
           </Reveal>
           <Reveal delay={80}>
-            <p className="text-muted mb-14">Как это уже работает для местных продавцов</p>
+            <p className="text-muted mb-2">Как это уже работает для местных продавцов</p>
           </Reveal>
+          <Reveal delay={120}>
+            <p className="md:hidden font-mono text-xs uppercase tracking-[0.1em] text-lime mb-10 flex items-center gap-2">
+              Листайте карточки в сторону
+              <span aria-hidden className="inline-block animate-pulse">→</span>
+            </p>
+          </Reveal>
+          <div className="hidden md:block mb-14" />
         </div>
 
-        <div className="flex gap-5 overflow-x-auto no-scrollbar px-6 pb-4 md:grid md:grid-cols-2 md:px-6 md:max-w-5xl md:mx-auto">
+        <div
+          id="cases-scroll"
+          className="flex gap-5 overflow-x-auto no-scrollbar px-6 pb-4 snap-x snap-mandatory md:grid md:grid-cols-2 md:px-6 md:max-w-5xl md:mx-auto md:snap-none"
+        >
           {CASES.map((c, i) => (
-            <Reveal key={c.name} delay={(i % 2) * 90} className="shrink-0 w-[85vw] md:w-auto">
+            <Reveal
+              key={c.name}
+              delay={(i % 2) * 90}
+              className="shrink-0 w-[85vw] snap-center md:w-auto md:snap-align-none"
+            >
               <div className="h-full rounded-2xl border border-line bg-ink p-7 md:p-8 flex flex-col">
                 <div className="mb-5">
                   <h3 className="font-display text-xl font-medium">{c.name}</h3>
@@ -243,6 +298,13 @@ export default function PartnersPage() {
                 </div>
               </div>
             </Reveal>
+          ))}
+        </div>
+
+        {/* Индикаторы прокрутки — только на мобильных */}
+        <div className="flex md:hidden justify-center gap-2 mt-2">
+          {CASES.map((c) => (
+            <span key={c.name} className="w-1.5 h-1.5 rounded-full bg-line" />
           ))}
         </div>
       </section>
