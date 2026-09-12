@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import MechanicVisual from '@/components/MechanicVisual'
+import ScreenshotGallery from '@/components/ScreenshotGallery'
 
 const WHATSAPP_LINK =
   'https://wa.me/77782784653?text=' + encodeURIComponent('Здравствуйте! Хочу разместить товар на СБРОС.')
@@ -209,22 +210,13 @@ export default function PartnersPage() {
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-3 gap-4 md:gap-8">
-            {[
+          <ScreenshotGallery
+            shots={[
               { src: '/images/screen-product.jpg', caption: 'Цена падает по мере набора участников' },
               { src: '/images/screen-feed.jpg', caption: 'Лента активных предложений в городе' },
               { src: '/images/screen-chat.jpg', caption: 'Прямая связь с продавцом в WhatsApp' },
-            ].map((s, i) => (
-              <Reveal key={s.src} delay={i * 90}>
-                <div className="flex flex-col items-center">
-                  <div className="relative w-full max-w-[220px] rounded-[2rem] border-4 border-line bg-ink overflow-hidden shadow-2xl mb-4">
-                    <img src={s.src} alt={s.caption} className="w-full h-auto block" />
-                  </div>
-                  <p className="text-sm text-muted text-center max-w-[200px]">{s.caption}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+            ]}
+          />
         </div>
       </section>
 
